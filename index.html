@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S&P 500 Live Stock Screener - Real-Time Analysis</title>
+    <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+<div class="live-indicator">
+    <div class="live-dot"></div>
+    <span style="font-weight: 700; font-size: 0.9rem;">🔴 LIVE MARKET DATA</span>
+</div>
+
+<div class="container">
+    <div class="header">
+        <h1>📈 S&P 500 Live Stock Screener</h1>
+        <p>Real-Time Technical + Fundamental Analysis with AI-Powered Recommendations</p>
+        <div class="market-status">
+            <div class="status-item">
+                📊 S&P 500: <span class="status-value" id="sp500Index">5,247.68</span>
+                <span class="status-value" id="sp500Change" style="margin-left: 8px; font-size: 0.9rem;"></span>
+            </div>
+            <div class="status-item">
+                ⏰ Last Update: <span class="status-value" id="lastUpdate">--:--:--</span>
+            </div>
+            <div class="status-item">
+                🌡️ Market: <span class="status-value" id="marketTemp">Neutral</span>
+            </div>
+            <div class="status-item">
+                📡 Status: <span class="status-value" id="dataSource">Live</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-dashboard">
+        <div class="control-panel">
+            <div class="panel-title">🎯 Analysis Filters</div>
+
+            <div class="filter-section">
+                <h4>📊 Technical</h4>
+                <div class="filter-group">
+                    <label>RSI Range</label>
+                    <select class="filter-input" id="rsiFilter">
+                        <option value="all">All Levels</option>
+                        <option value="oversold">Oversold (&lt; 30)</option>
+                        <option value="neutral">Neutral (30-70)</option>
+                        <option value="overbought">Overbought (&gt; 70)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>MACD Signal</label>
+                    <select class="filter-input" id="macdFilter">
+                        <option value="all">All Signals</option>
+                        <option value="bullish">Bullish</option>
+                        <option value="bearish">Bearish</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h4>💰 Fundamental</h4>
+                <div class="filter-group">
+                    <label>P/E Ratio (Max)</label>
+                    <input type="number" class="filter-input" id="peRange" value="30" min="0" max="100">
+                </div>
+                <div class="filter-group">
+                    <label>ROE (Min %)</label>
+                    <input type="number" class="filter-input" id="roeRange" value="15" min="0" max="100">
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h4>🏢 Sector</h4>
+                <div class="filter-group">
+                    <select class="filter-input" id="sectorFilter">
+                        <option value="all">All Sectors</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Financial">Financial</option>
+                        <option value="Consumer">Consumer</option>
+                        <option value="Industrial">Industrial</option>
+                        <option value="Energy">Energy</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="scan-button" onclick="scanSP500()" id="scanBtn">
+                🔍 Scan S&P 500
+            </button>
+        </div>
+
+        <div class="control-panel">
+            <div class="panel-title">📊 Live Dashboard</div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value buy" id="buyCount">0</div>
+                    <div class="stat-label">Strong Buy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value hold" id="holdCount">0</div>
+                    <div class="stat-label">Hold</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value sell" id="sellCount">0</div>
+                    <div class="stat-label">Sell</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: #667eea;" id="totalScanned">0</div>
+                    <div class="stat-label">Scanned</div>
+                </div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin-top: 20px;">
+                <div style="font-size: 1rem; font-weight: 700; margin-bottom: 15px; color: #667eea; text-align: center;">
+                    🤖 AI MARKET INSIGHTS
+                </div>
+                <div id="marketInsights" style="font-size: 0.9rem; line-height: 1.6; color: #e0e0e0;">
+                    Click "Scan S&P 500" to generate AI-powered market insights and recommendations...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="results-section">
+        <div class="results-header">
+            <div class="results-title">🚀 AI Recommendations</div>
+            <div class="filter-tabs">
+                <div class="filter-tab active" onclick="filterResults('all')">All</div>
+                <div class="filter-tab" onclick="filterResults('buy')">Buy</div>
+                <div class="filter-tab" onclick="filterResults('hold')">Hold</div>
+                <div class="filter-tab" onclick="filterResults('sell')">Sell</div>
+            </div>
+        </div>
+
+        <div class="stocks-grid" id="stocksGrid">
+            <div class="no-results">
+                <div style="font-size: 5rem; margin-bottom: 25px;">📈</div>
+                <h3>S&P 500 Live Scanner Ready</h3>
+                <p style="margin: 20px 0;">Click "Scan S&P 500" to analyze stocks with live data</p>
+                <div style="text-align: left; display: inline-block; font-size: 0.9rem; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px;">
+                    <p>📊 <strong>Technical Analysis:</strong> RSI, MACD, Moving Averages</p>
+                    <p>💰 <strong>Fundamentals:</strong> P/E, ROE, Growth Rates</p>
+                    <p>🤖 <strong>AI Scoring:</strong> Combined analysis scores</p>
+                    <p>🔴 <strong>Live Updates:</strong> Prices refresh every 30 seconds</p>
+                    <p>🎯 <strong>Smart Recommendations:</strong> Buy/Hold/Sell signals</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="src/main.js"></script>
+</body>
+</html>
