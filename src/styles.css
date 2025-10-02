@@ -386,6 +386,19 @@ body {
     color: white;
 }
 
+.divergence-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #4CAF50 0%, #f44336 100%);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 14px;
+    margin: 8px 0 0 0;
+    box-shadow: 0 2px 8px rgba(76,175,80,0.08);
+    letter-spacing: 0.5px;
+}
+
 .analysis-scores {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -442,6 +455,10 @@ body {
 .indicator-bullish { color: #4CAF50; }
 .indicator-bearish { color: #f44336; }
 .indicator-neutral { color: #ff9800; }
+.indicator-obv {
+    color: #00bcd4;
+    font-weight: 700;
+}
 
 .loading {
     text-align: center;
@@ -522,6 +539,112 @@ body {
     background: rgba(255,255,255,0.2);
 }
 
+/* Asset Class Tabs - Enhanced Styling */
+.asset-tabs-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 25px 20px;
+    margin: 20px 0 30px 0;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.asset-tabs {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.asset-tab {
+    padding: 18px 35px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-weight: 700;
+    font-size: 16px;
+    min-width: 160px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.asset-tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.6s;
+}
+
+.asset-tab:hover::before {
+    left: 100%;
+}
+
+.asset-tab:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.asset-tab.active {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px) scale(1.02);
+}
+
+.asset-tab.active:hover {
+    background: white;
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive design for tabs */
+@media (max-width: 768px) {
+    .asset-tabs-container {
+        padding: 20px 15px;
+        margin: 15px 0 25px 0;
+    }
+
+    .asset-tabs {
+        gap: 15px;
+    }
+
+    .asset-tab {
+        padding: 15px 25px;
+        font-size: 14px;
+        min-width: 130px;
+    }
+}
+
+@media (max-width: 480px) {
+    .asset-tabs {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .asset-tab {
+        width: 200px;
+        padding: 12px 20px;
+    }
+}
+
 .stocks-grid::-webkit-scrollbar {
     width: 10px;
 }
@@ -534,6 +657,64 @@ body {
 .stocks-grid::-webkit-scrollbar-thumb {
     background: linear-gradient(135deg, #667eea, #764ba2);
     border-radius: 5px;
+}
+
+.news-section {
+    background: rgba(30, 34, 60, 0.7);
+    border-radius: 18px;
+    margin: 40px 0 0 0;
+    padding: 32px 24px;
+    box-shadow: 0 8px 32px rgba(102,126,234,0.12);
+}
+.news-header {
+    margin-bottom: 18px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #f093fb;
+}
+.news-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #667eea;
+}
+.news-item {
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    margin-bottom: 18px;
+    padding: 16px 18px;
+    box-shadow: 0 2px 8px rgba(102,126,234,0.08);
+}
+.news-headline a {
+    color: #f093fb;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+.news-headline a:hover {
+    text-decoration: underline;
+}
+.news-meta {
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    margin-top: 6px;
+}
+.news-sentiment {
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 8px;
+}
+.news-sentiment.positive {
+    background: #4CAF50;
+    color: #fff;
+}
+.news-sentiment.negative {
+    background: #f44336;
+    color: #fff;
+}
+.news-sentiment.neutral {
+    background: #ffc107;
+    color: #222;
 }
 
 @media (max-width: 1200px) {

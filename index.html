@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S&P 500 Live Stock Screener - Real-Time Analysis</title>
+    <title>US Stock Screener - Real-Time Analysis</title>
     <link rel="stylesheet" href="src/styles.css">
 </head>
 <body>
@@ -14,11 +14,27 @@
 
 <div class="container">
     <div class="header">
-        <h1>📈 S&P 500 Live Stock Screener</h1>
+        <h1>🇺🇸 US Stock Screener</h1>
         <p>Real-Time Technical + Fundamental Analysis with AI-Powered Recommendations</p>
+
+        <!-- Asset Class Tabs -->
+        <div class="asset-tabs-container">
+            <div class="asset-tabs">
+                <button class="asset-tab active" data-asset="sp500" onclick="switchAssetClass('sp500')">
+                    📈 S&P 500
+                </button>
+                <button class="asset-tab" data-asset="crypto" onclick="switchAssetClass('crypto')">
+                    ₿ Crypto
+                </button>
+                <button class="asset-tab" data-asset="commodities" onclick="switchAssetClass('commodities')">
+                    🏗️ Commodities
+                </button>
+            </div>
+        </div>
+
         <div class="market-status">
             <div class="status-item">
-                📊 S&P 500: <span class="status-value" id="sp500Index">5,247.68</span>
+                📊 <span id="marketIndexLabel">S&P 500</span>: <span class="status-value" id="sp500Index">5,247.68</span>
                 <span class="status-value" id="sp500Change" style="margin-left: 8px; font-size: 0.9rem;"></span>
             </div>
             <div class="status-item">
@@ -140,17 +156,31 @@
                 <h3>S&P 500 Live Scanner Ready</h3>
                 <p style="margin: 20px 0;">Click "Scan S&P 500" to analyze stocks with live data</p>
                 <div style="text-align: left; display: inline-block; font-size: 0.9rem; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px;">
-                    <p>📊 <strong>Technical Analysis:</strong> RSI, MACD, Moving Averages</p>
+                    <p>📊 <strong>Technical Analysis:</strong> RSI, MACD, MFI, OBV with 14-day divergence detection</p>
                     <p>💰 <strong>Fundamentals:</strong> P/E, ROE, Growth Rates</p>
                     <p>🤖 <strong>AI Scoring:</strong> Combined analysis scores</p>
                     <p>🔴 <strong>Live Updates:</strong> Prices refresh every 30 seconds</p>
-                    <p>🎯 <strong>Smart Recommendations:</strong> Buy/Hold/Sell signals</p>
+                    <p>🎯 <strong>Smart Recommendations:</strong> Buy/Hold/Sell signals with divergence badges</p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live News Feed Section -->
+    <div class="news-section">
+        <div class="news-header">
+            <div class="news-title">📰 Live News Feed</div>
+        </div>
+        <div id="newsFeed">
+            <div class="no-news">
+                <div style="font-size: 2rem; margin-bottom: 10px;">📰</div>
+                <h3>No news loaded yet</h3>
+                <p>Latest headlines and sentiment will appear here after scanning.</p>
             </div>
         </div>
     </div>
 </div>
 
-<script src="src/main.js"></script>
+<script src="src/main-fixed.js"></script>
 </body>
 </html>
